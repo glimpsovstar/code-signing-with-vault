@@ -35,7 +35,7 @@ jobs:
           Remove-Item "vault.zip"
 
       - name: Authenticate to Vault
-        uses: hashicorp/vault-action@v2
+        uses: hashicorp/vault-action@v3.0.0
         with:
           url: ${{ env.VAULT_ADDR }}
           namespace: ${{ env.VAULT_NAMESPACE }}
