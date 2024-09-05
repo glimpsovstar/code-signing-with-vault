@@ -44,7 +44,15 @@ jobs:
           role: repository
           jwtGithubAudience: ${{ env.VAULT_ADDR }}
           exportToken: true
-
+          
+      - name: Output Synced github secret from HCP Vault
+        run: |
+          $secretValue = $env:GITHUB_SECRET_NAME
+          Write-Host "The secret is: $secretValue"
+        shell: pwsh
+        env:
+          GITHUB_SECRET_NAME: ${{ secrets.SECRET_NAME }}
+          
       - name: Get code signing certificate
         shell: powershell
         run: |
