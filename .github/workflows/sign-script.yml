@@ -48,7 +48,7 @@ jobs:
       - name: Output Synced github secret from HCP Vault
         run: |
           $secretValue = $env:GITHUB_SECRET_NAME
-          Write-Host "The secret is: $secretValue"
+          Write-Host "The secret is: ::add-mask::$secretValue"
         shell: pwsh
         env:
           GITHUB_SECRET_NAME: ${{ secrets.VAULT_KV_2B3F524E_MY_SECRET }}
