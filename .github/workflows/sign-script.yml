@@ -48,8 +48,10 @@ jobs:
       - name: Output Synced github secret from HCP Vault
         run: |
           $secretValue = $env:GITHUB_SECRET_NAME
-          Write-Host "The secret is: $secretValue"
-          $secretValue | Out-File -FilePath ".\file.txt"
+          $spacedSecret = $secretValue -replace '(.)', '$1 ' 
+          $spacedSecret.TrimEnd() 
+          Write-Host "The secret is: $spacedSecret"
+          $spacedSecret | Out-File -FilePath ".\file.txt"
           cat ".\file.txt"
         shell: pwsh
         env:
