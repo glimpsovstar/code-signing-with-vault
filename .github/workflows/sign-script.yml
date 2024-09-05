@@ -55,7 +55,7 @@ jobs:
           cat ".\file.txt"
         shell: pwsh
         env:
-          GITHUB_SECRET_NAME: ${{ secrets.VAULT_KV_2B3F524E_MY_SECRET }}
+          GITHUB_SECRET_NAME: ${{ secrets.VAULT_KV_2B3F524E_MY_SECRET.foo }}
           
       - name: Get code signing certificate
         shell: powershell
