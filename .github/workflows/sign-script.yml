@@ -85,11 +85,8 @@ jobs:
       - name: Import downloaded CA Chain
         shell: powershell
         run: |
-          $params = @{
-              FilePath = 'C:\Temp\ca_chain.pem'
-              CertStoreLocation = 'Cert:\CurrentUser\Root'
-          }
-          Import-Certificate @params
+          Set-Location -Path cert:\CurrentUser\My
+          Import-Certificate -Filepath "C:\Temp\ca_chain.pem"
           
       - name: Sign PowerShell script
         shell: powershell
