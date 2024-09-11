@@ -97,6 +97,11 @@ jobs:
             -FilePath "hello-world.ps1" `
             -TimestampServer "http://timestamp.digicert.com"
 
+      - name: validate signed code
+        shell: powershell
+        run: |
+          Get-AuthenticodeSignature -FilePath "hello-world.ps1"
+
       - name: Upload signed PowerShell script
         uses: actions/upload-artifact@v3
         with:
