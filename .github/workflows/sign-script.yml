@@ -67,7 +67,7 @@ jobs:
           Set-Content -Path "codesigning.crt" -Value "$($CertJson.data.certificate)`n$($CertJson.data.ca_chain -Join "`n")"
           Set-Content -Path "codesigning.key" -Value "$($CertJson.data.private_key)"
           openssl pkcs12 -export -out ".\codesigning.pfx" -inkey codesigning.key -in codesigning.crt -passout pass:""
-          cat ".\codesigning.pfx"
+          Get-PfxCertificate -FilePath ".\codesigning.pfx"
           Remove-Item -Path codesigning.crt,codesigning.key
       
       - name: Get code signing CA Chain
