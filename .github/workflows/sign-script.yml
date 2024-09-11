@@ -82,7 +82,15 @@ jobs:
           } catch {
               Write-Host "Error downloading the CA chain: $_"
           }
-
+      - name: Import downloaded CA Chain
+        shell: powershell
+        run: |
+          $params = @{
+              FilePath = 'C:\Temp\ca_chain.pem'
+              CertStoreLocation = 'Cert:\CurrentUser\Root'
+          }
+          Import-Certificate @params
+          
       - name: Sign PowerShell script
         shell: powershell
         run: |
