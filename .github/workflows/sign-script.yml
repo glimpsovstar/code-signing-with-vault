@@ -68,6 +68,20 @@ jobs:
           Set-Content -Path "codesigning.key" -Value "$($CertJson.data.private_key)"
           openssl pkcs12 -export -out codesigning.pfx -inkey codesigning.key -in codesigning.crt -passout pass:""
           Remove-Item -Path codesigning.crt,codesigning.key
+      
+      - name: Get code signing CA Chain
+        shell: powershell
+        run: |
+          $certUrl = "${{ env.VAULT_ADDR }}/v1/admin/pki-codesign/ca_chain"
+          $outputFilePath = "C:\Temp\ca_chain.pem"
+          
+          # Download the CA chain using Invoke-WebRequest
+          try {
+              Invoke-WebRequest -Uri $certUrl -OutFile $outputFilePath
+              Write-Host "CA chain downloaded successfully and saved to $outputFilePath"
+          } catch {
+              Write-Host "Error downloading the CA chain: $_"
+          }
 
       - name: Sign PowerShell script
         shell: powershell
