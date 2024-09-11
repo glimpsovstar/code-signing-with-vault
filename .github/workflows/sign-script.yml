@@ -96,8 +96,8 @@ jobs:
           $Cert = Get-PfxCertificate -FilePath ".\codesigning.pfx"
           Set-AuthenticodeSignature `
             -Certificate $Cert `
-            -FilePath ".\hello-world_utf.ps1" `
-            -TimestampServer "http://timestamp.digicert.com"
+            -FilePath ".\hello-world_utf.ps1" 
+            #-TimestampServer "http://timestamp.digicert.com"
 
       - name: validate signed code
         shell: powershell
