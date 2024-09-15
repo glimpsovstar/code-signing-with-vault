@@ -60,7 +60,7 @@ jobs:
       - name: Get code signing certificate
         shell: powershell
         run: |
-          $Endpoint = "admin/pki-codesign/issue/github-actions"
+          $Endpoint = "pki-codesign/issue/github-actions"
           $CertSubject = "spiffe://github.com/${{ github.repository }}@${{ github.run_id }}-${{ github.job }}"
           $Cert = $(./vault.exe write -format=json "$Endpoint" common_name="$CertSubject" uri_sans="$CertSubject")
           $CertJson = $Cert | ConvertFrom-Json
