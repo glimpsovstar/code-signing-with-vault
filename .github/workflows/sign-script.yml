@@ -99,7 +99,7 @@ jobs:
         shell: powershell
         run: |
           Set-Location -Path cert:\CurrentUser\My
-          Import-Certificate -Filepath "$($currentDirectoryPath)"issuing_ca.pem"
+          Import-Certificate -Filepath "$($currentDirectoryPath)issuing_ca.pem"
           
       - name: Sign PowerShell script
         shell: powershell
