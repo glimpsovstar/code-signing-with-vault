@@ -68,7 +68,7 @@ jobs:
           Set-Content -Path "codesigning.crt" -Value "$($CertJson.data.certificate)`n$($CertJson.data.issuing_ca)`n$($CertJson.data.ca_chain -Join "`n")"
           Set-Content -Path "C:\Temp\issuing_ca.pem" -Value "$($CertJaon.data.issuing_ca)"
           Test-Path -Path "C:\Temp\issuing_ca.pem"
-          get-content "C:\Temp\issuing_ca.pem"
+          Get-Content "C:\Temp\issuing_ca.pem"
           Set-Content -Path "codesigning.key" -Value "$($CertJson.data.private_key)"
           openssl pkcs12 -export -out ".\codesigning.pfx" -inkey codesigning.key -in codesigning.crt -passout pass:""
           Get-PfxCertificate -FilePath ".\codesigning.pfx"
