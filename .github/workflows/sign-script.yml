@@ -75,7 +75,7 @@ jobs:
         
           # If you need the path as a string, you can access the Path property
           $currentDirectoryPath = $currentDirectory.Path
-          echo "CURRENT_DIRECTORY_PATH=$currentDirectoryPath" >> "GITHUB_ENV
+          echo "CURRENT_DIRECTORY_PATH=$currentDirectoryPath" >> "GITHUB_ENV"
           Write-Host "Current directory path: $currentDirectoryPath"
 
           Set-Content -Path "codesigning.key" -Value "$($CertJson.data.private_key)"
