@@ -101,9 +101,11 @@ jobs:
       - name: Import downloaded CA Chain
         shell: powershell
         run: |
+          $dirPath=$(pwd)
+          $dirPath
           Set-Location -Path cert:\CurrentUser\My
-          cat "${{ env.CURRENT_DIRECTORY_PATH }}\issuing_ca.pem"
-          Import-Certificate -Filepath "${{ env.CURRENT_DIRECTORY_PATH }}\issuing_ca.pem"
+          cat "$dirPath\issuing_ca.pem"
+          Import-Certificate -Filepath "$dirPath\issuing_ca.pem"
           
       - name: Sign PowerShell script
         shell: powershell
