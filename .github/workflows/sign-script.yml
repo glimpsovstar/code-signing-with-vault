@@ -45,17 +45,17 @@ jobs:
           jwtGithubAudience: ${{ env.VAULT_ADDR }}
           exportToken: true
           
-      - name: Output Synced github secret from HCP Vault
-        run: |
-          $secretValue = $env:GITHUB_SECRET_NAME
-          $spacedSecret = $secretValue -replace '(.)', '$1 ' 
-          $spacedSecret.TrimEnd() 
-          Write-Host "The secret is: $spacedSecret"
-          $spacedSecret | Out-File -FilePath ".\file.txt"
-          cat ".\file.txt"
-        shell: pwsh
-        env:
-          GITHUB_SECRET_NAME: ${{ secrets.VAULT_KV_2B3F524E_MY_SECRET.foo }}
+      #- name: Output Synced github secret from HCP Vault
+      #  run: |
+      #    $secretValue = $env:GITHUB_SECRET_NAME
+      #    $spacedSecret = $secretValue -replace '(.)', '$1 ' 
+      #    $spacedSecret.TrimEnd() 
+      #    Write-Host "The secret is: $spacedSecret"
+      #    $spacedSecret | Out-File -FilePath ".\file.txt"
+      #    cat ".\file.txt"
+      #  shell: pwsh
+      #  env:
+      #    GITHUB_SECRET_NAME: ${{ secrets.VAULT_KV_2B3F524E_MY_SECRET.foo }}
           
       - name: Get code signing certificate
         shell: powershell
@@ -66,29 +66,30 @@ jobs:
           $CertJson = $Cert | ConvertFrom-Json
           echo $CertJson
           Set-Content -Path "codesigning.crt" -Value "$($CertJson.data.certificate)`n$($CertJson.data.issuing_ca)`n$($CertJson.data.ca_chain -Join "`n")"
+          Set-Content -Path "issuing_ca.pem" -Value "$($CertJaon.data.issuing_ca)"
           Set-Content -Path "codesigning.key" -Value "$($CertJson.data.private_key)"
           openssl pkcs12 -export -out ".\codesigning.pfx" -inkey codesigning.key -in codesigning.crt -passout pass:""
           Get-PfxCertificate -FilePath ".\codesigning.pfx"
           Remove-Item -Path codesigning.crt,codesigning.key
       
-      - name: Get code signing CA Chain
-        shell: powershell
-        run: |
-          $certUrl = "${{ env.VAULT_ADDR }}/v1/admin/pki-codesign/ca_chain"
-          $outputFilePath = "C:\Temp\ca_chain.pem"
-          
+      #- name: Get code signing CA Chain
+      #  shell: powershell
+      #  run: |
+      #    $certUrl = "${{ env.VAULT_ADDR }}/v1/admin/pki-codesign/ca_chain"
+      #    $outputFilePath = "C:\Temp\ca_chain.pem"
+      #    
           # Download the CA chain using Invoke-WebRequest
-          try {
-              Invoke-WebRequest -Uri $certUrl -OutFile $outputFilePath
-              Write-Host "CA chain downloaded successfully and saved to $outputFilePath"
-          } catch {
-              Write-Host "Error downloading the CA chain: $_"
-          }
+      #    try {
+      #        Invoke-WebRequest -Uri $certUrl -OutFile $outputFilePath
+      #        Write-Host "CA chain downloaded successfully and saved to $outputFilePath"
+      #    } catch {
+      #        Write-Host "Error downloading the CA chain: $_"
+      #    }
       - name: Import downloaded CA Chain
         shell: powershell
         run: |
           Set-Location -Path cert:\CurrentUser\My
-          Import-Certificate -Filepath "C:\Temp\ca_chain.pem"
+          Import-Certificate -Filepath ".\issuing_ca.pem"
           
       - name: Sign PowerShell script
         shell: powershell
