@@ -92,6 +92,7 @@ jobs:
         run: |
           Set-Location -Path cert:\CurrentUser\My
           Test-Path -Path "C:\Temp\issuing_ca.pem"
+          Get-content -Path "C:\Temp\issuing_ca.pem"
           Import-Certificate -Filepath "C:\Temp\issuing_ca.pem"
           
       - name: Sign PowerShell script
