@@ -100,8 +100,8 @@ jobs:
         shell: powershell
         run: |
           Set-Location -Path cert:\CurrentUser\My
-          cat "${{ env.CurrentDirectoryPath }}\issuing_ca.pem"
-          Import-Certificate -Filepath "$(env.currentDirectoryPath)\issuing_ca.pem"
+          cat "${{ env.CURRENT_DIRECTORY_PATH }}\issuing_ca.pem"
+          Import-Certificate -Filepath "${{ env.CURRENT_DIRECTORY_PATH }}\issuing_ca.pem"
           
       - name: Sign PowerShell script
         shell: powershell
