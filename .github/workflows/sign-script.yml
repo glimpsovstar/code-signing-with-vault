@@ -104,8 +104,8 @@ jobs:
           $dirPath=$(pwd)
           $dirPath
           Set-Location -Path cert:\CurrentUser\My
-          cat "$dirPath\issuing_ca.pem"
-          Import-Certificate -Filepath "$dirPath\issuing_ca.pem"
+          cat $dirPath\issuing_ca.pem
+          Import-Certificate -Filepath $dirPath\issuing_ca.pem
           
       - name: Sign PowerShell script
         shell: powershell
