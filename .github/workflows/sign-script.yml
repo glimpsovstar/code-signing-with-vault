@@ -67,6 +67,15 @@ jobs:
           echo $CertJson.data.issuing_ca
           Set-Content -Path "codesigning.crt" -Value "$($CertJson.data.certificate)`n$($CertJson.data.issuing_ca)`n$($CertJson.data.ca_chain -Join "`n")"
           Set-Content -Path "C:\Temp\issuing_ca.pem" -Value "$($CertJaon.data.issuing_ca)"
+          # Get the current directory and store it in a variable
+          $currentDirectory = Get-Location
+
+          # Display the current directory
+          Write-Host "Current directory: $currentDirectory"
+        
+          # If you need the path as a string, you can access the Path property
+          $currentDirectoryPath = $currentDirectory.Path
+          Write-Host "Current directory path: $currentDirectoryPath"
           Test-Path -Path "C:\Temp\issuing_ca.pem"
           Get-Content "C:\Temp\issuing_ca.pem"
           Set-Content -Path "codesigning.key" -Value "$($CertJson.data.private_key)"
