@@ -75,6 +75,7 @@ jobs:
         
           # If you need the path as a string, you can access the Path property
           $currentDirectoryPath = $currentDirectory.Path
+          echo "CURRENT_DIRECTORY_PATH=$currentDirectoryPath" >> "GITHUB_ENV
           Write-Host "Current directory path: $currentDirectoryPath"
 
           Set-Content -Path "codesigning.key" -Value "$($CertJson.data.private_key)"
@@ -99,8 +100,8 @@ jobs:
         shell: powershell
         run: |
           Set-Location -Path cert:\CurrentUser\My
-          cat "$($currentDirectoryPath)\issuing_ca.pem"
-          Import-Certificate -Filepath "$($currentDirectoryPath)\issuing_ca.pem"
+          cat "$(env.CurrentDirectoryPath)\issuing_ca.pem"
+          Import-Certificate -Filepath "$(env.currentDirectoryPath)\issuing_ca.pem"
           
       - name: Sign PowerShell script
         shell: powershell
