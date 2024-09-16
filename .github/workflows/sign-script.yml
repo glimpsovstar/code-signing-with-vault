@@ -78,7 +78,7 @@ jobs:
           echo "CURRENT_DIRECTORY_PATH=$currentDirectoryPath" >> "GITHUB_ENV"
           Write-Host "Current directory path: $currentDirectoryPath"
 
-          Write-Output -InputObject ${{ env.CURRENT_DIRECTORY_PATH }}
+          Write-Output -InputObject $env.CURRENT_DIRECTORY_PATH
 
           Set-Content -Path "codesigning.key" -Value "$($CertJson.data.private_key)"
           openssl pkcs12 -export -out ".\codesigning.pfx" -inkey codesigning.key -in codesigning.crt -passout pass:""
