@@ -113,7 +113,11 @@ jobs:
           Get-ChildItem -Path Cert:\CurrentUser\My -CodeSigningCert
           Write-Host "let's see what's in the pfx file"
           Get-ChildItem -Path ".\codesigning.pfx" | Import-PfxCertificate -CertStoreLocation Cert:\CurrentUser\My -Exportable
+          Write-Host "Importing issuing CA"
+          Import-PfxCertificate -CertStoreLocation Cert:\CurrentUser\My -Filepath ".\issuing_ca.pem"
+          Write-Host "Checking whether we have codesigningcert"
           Get-ChildItem -Path Cert:\CurrentUser\My -CodeSigningCert
+          $Cert=Get-ChildItem -Path Cert:\CurrentUser\My -CodeSigningCert
           #Get-PfxCertificate -FilePath ".\codesigning.pfx" -CodeSigningCert
           #$Cert=Get-PfxCertificate -FilePath ".\codesigning.pfx" 
           Set-PSDebug -Trace 2; Set-AuthenticodeSignature `
