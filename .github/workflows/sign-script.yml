@@ -113,17 +113,16 @@ jobs:
       - name: Sign PowerShell script
         shell: powershell
         run: |
-          type ".\hello-world.ps1" | out-file .\hello-world_utf.ps1 -encoding utf8
           $Cert = Get-PfxCertificate -FilePath ".\codesigning.pfx"
-          Set-AuthenticodeSignature `
+          Set-PSDebug -Trace 2; Set-AuthenticodeSignature `
             -Certificate $Cert `
-            -FilePath ".\hello-world_utf.ps1" `
+            -FilePath ".\hello-world.ps1" `
             -TimestampServer "http://timestamp.digicert.com?alg=sha256"
 
       - name: validate signed code
         shell: powershell
         run: |
-          Get-AuthenticodeSignature -FilePath ".\hello-world_utf.ps1"
+          Get-AuthenticodeSignature -FilePath ".\hello-world.ps1"
 
       - name: Upload signed PowerShell script
         uses: actions/upload-artifact@v3
