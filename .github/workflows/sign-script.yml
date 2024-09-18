@@ -112,8 +112,10 @@ jobs:
           Write-Host "Let's see what has been imported into the trusted store"
           Get-ChildItem -Path Cert:\CurrentUser\My -CodeSigningCert
           Write-Host "let's see what's in the pfx file"
-          Get-PfxCertificate -FilePath ".\codesigning.pfx" -CodeSigningCert
-          $Cert=Get-PfxCertificate -FilePath ".\codesigning.pfx" 
+          Get-ChildItem -Path ".\codesigning.pfx" | Import-PfxCertificate -CertStoreLocation Cert:\CurrentUser\My -Exportable
+          Get-ChildItem -Path Cert:\CurrentUser\My -CodeSigningCert
+          #Get-PfxCertificate -FilePath ".\codesigning.pfx" -CodeSigningCert
+          #$Cert=Get-PfxCertificate -FilePath ".\codesigning.pfx" 
           Set-PSDebug -Trace 2; Set-AuthenticodeSignature `
             -Certificate $Cert `
             -FilePath ".\hello-world.ps1" `
