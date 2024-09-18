@@ -76,6 +76,7 @@ jobs:
           # If you need the path as a string, you can access the Path property
           $currentDirectoryPath = $currentDirectory.Path
           echo "CURRENT_DIRECTORY_PATH=$currentDirectoryPath" >> "GITHUB_ENV"
+          dir
           Write-Host "Current directory path: $currentDirectoryPath"
 
           Write-Output -InputObject $env.CURRENT_DIRECTORY_PATH
