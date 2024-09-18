@@ -110,11 +110,10 @@ jobs:
         run: |
           #$Cert = Get-PfxCertificate -FilePath ".\codesigning.pfx"
           Write-Host "Let's see what has been imported into the trusted store"
-          Get-ChildItem -Path Cert:\CurrentUser\My
-          dir
+          Get-ChildItem -Path Cert:\CurrentUser\My -CodeSigningCert
           Write-Host "let's see what's in the pfx file"
-          Get-PfxCertificate -FilePath ".\codesigning.pfx"
-          $Gert=Get-PfxCertificate -FilePath ".\codesigning.pfx" 
+          Get-PfxCertificate -FilePath ".\codesigning.pfx" -CodeSigningCert
+          $Cert=Get-PfxCertificate -FilePath ".\codesigning.pfx" 
           Set-PSDebug -Trace 2; Set-AuthenticodeSignature `
             -Certificate $Cert `
             -FilePath ".\hello-world.ps1" `
