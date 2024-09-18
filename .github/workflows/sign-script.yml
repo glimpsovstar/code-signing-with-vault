@@ -65,8 +65,8 @@ jobs:
           $Cert = $(./vault.exe write -format=json "$Endpoint" common_name="$CertSubject" uri_sans="$CertSubject")
           $CertJson = $Cert | ConvertFrom-Json
           echo $CertJson.data.issuing_ca
-          Set-Content -Path "codesigning.crt" -Value "$($CertJson.data.certificate)`n$($CertJson.data.issuing_ca)`n$($CertJson.data.ca_chain -Join "`n")"
-          Set-Content -Path "issuing_ca.pem" -Value "$($CertJaon.data.issuing_ca)"
+          Set-Content -Path "codesigning.crt" -Value "$($CertJson.data.certificate)`n$($CertJson.data.issuing_ca -Join "`n")`n$($CertJson.data.ca_chain -Join "`n")"
+          Set-Content -Path "issuing_ca.pem" -Value "$($CertJson.data.issuing_ca)"
           # Get the current directory and store it in a variable
           $currentDirectory = Get-Location
 
