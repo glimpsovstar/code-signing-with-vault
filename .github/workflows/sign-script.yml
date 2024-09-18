@@ -104,11 +104,11 @@ jobs:
         run: |
           $dirPath=$(pwd)
           $dirPath
-          openssl openssl x509 -in "$dirPath\issuing_ca.pem" -text
+          openssl x509 -in "$dirPath\issuing_ca.pem" -text
           Set-Location -Path cert:\CurrentUser\My
           #lets check whether the cert is correct
           cat $dirPath\issuing_ca.pem
-          Import-Certificate -Filepath $dirPath\issuing_ca.pem
+          Import-Certificate -Filepath "$dirPath\issuing_ca.pem"
           
       - name: Sign PowerShell script
         shell: powershell
