@@ -94,13 +94,13 @@ jobs:
       #    } catch {
       #        Write-Host "Error downloading the CA chain: $_"
       #    }
-      - name: Import downloaded CA Chain
+      - name: Import downloaded Issuing CA Chain
         shell: powershell
         run: |
           $dirPath=$(pwd)
           $dirPath
           openssl x509 -in "$dirPath\issuing_ca.pem" -text
-          Set-Location -Path Cert:\LocalMachine\My
+          Set-Location -Path Cert:\LocalMachine\Root
           #lets check whether the cert is correct
           cat $dirPath\issuing_ca.pem
           Import-Certificate -Filepath "$dirPath\issuing_ca.pem"
