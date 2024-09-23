@@ -112,9 +112,9 @@ jobs:
           Write-Host "Let's see what has been imported into the trusted store"
           Get-ChildItem -Path Cert:\CurrentUser\Root -CodeSigningCert
           Write-Host "let's see what's in the pfx file"
-          Get-ChildItem -Path ".\codesigning.pfx" | Import-PfxCertificate -CertStoreLocation Cert:\LocalMachine\My
+          Get-ChildItem -Path ".\codesigning.pfx" | Import-PfxCertificate -CertStoreLocation Cert:\LocalMachine\My  -Password ""
           Write-Host "Importing issuing CA"
-          Import-Certificate -CertStoreLocation Cert:\LocalMachine\My -Filepath ".\issuing_ca.pem" -Password ""
+          Import-Certificate -CertStoreLocation Cert:\LocalMachine\My -Filepath ".\issuing_ca.pem"
           
           Write-Host "To check whether the import was done correctly"
           certutil -store My
