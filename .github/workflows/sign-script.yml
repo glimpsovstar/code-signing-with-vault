@@ -127,7 +127,7 @@ jobs:
           Set-PSDebug -Trace 2; Set-AuthenticodeSignature `
             -Certificate $Cert `
             -FilePath ".\hello-world.ps1" `
-            -TimestampServer "http://timestamp.digicert.com?alg=sha256"
+            -TimestampServer "http://timestamp.sectigo.com"
 
       - name: validate signed code
         shell: pwsh
