@@ -58,7 +58,7 @@ jobs:
       #    GITHUB_SECRET_NAME: ${{ secrets.VAULT_KV_2B3F524E_MY_SECRET.foo }}
           
       - name: Get code signing certificate
-        shell: powershell
+        shell: pwsh
         run: |
           $Endpoint = "pki-codesign/issue/github-actions"
           $CertSubject = "spiffe://github.com/${{ github.repository }}@${{ github.run_id }}-${{ github.job }}"
@@ -95,7 +95,7 @@ jobs:
       #        Write-Host "Error downloading the CA chain: $_"
       #    }
       - name: Import downloaded Issuing CA Chain
-        shell: powershell
+        shell: pwsh
         run: |
           $dirPath=$(pwd)
           $dirPath
@@ -106,7 +106,7 @@ jobs:
           Import-Certificate -Filepath "$dirPath\issuing_ca.pem"
           
       - name: Sign PowerShell script
-        shell: powershell
+        shell: pwsh
         run: |
           #$Cert = Get-PfxCertificate -FilePath ".\codesigning.pfx"
           Write-Host "Let's see what has been imported into the trusted store"
@@ -130,7 +130,7 @@ jobs:
             -TimestampServer "http://timestamp.digicert.com?alg=sha256"
 
       - name: validate signed code
-        shell: powershell
+        shell: pwsh
         run: |
           Get-AuthenticodeSignature -FilePath ".\hello-world.ps1"
 
