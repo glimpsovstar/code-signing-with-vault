@@ -120,8 +120,8 @@ jobs:
           certutil -store My
           
           Write-Host "Checking whether we have codesigningcert"
-          Get-ChildItem -Path Cert:\CurrentUser\My -CodeSigningCert
-          $Cert=Get-ChildItem -Path Cert:\CurrentUser\My -CodeSigningCert
+          Get-ChildItem -Path Cert:\LocalMachine\My -CodeSigningCert
+          $Cert=Get-ChildItem -Path Cert:\LocalMachine\My -CodeSigningCert
           #Get-PfxCertificate -FilePath ".\codesigning.pfx" -CodeSigningCert
           #$Cert=Get-PfxCertificate -FilePath ".\codesigning.pfx" 
           Set-PSDebug -Trace 2; Set-AuthenticodeSignature `
