@@ -117,13 +117,13 @@ jobs:
           Import-Certificate -CertStoreLocation Cert:\LocalMachine\Root -Filepath ".\issuing_ca.pem"
           
           Write-Host "To check whether the import was done correctly"
-          certutil -store Root
+          #certutil -store Root
           
           Write-Host "Checking whether we have codesigningcert"
           Get-ChildItem -Path Cert:\LocalMachine\Root -CodeSigningCert
-          $Cert=Get-ChildItem -Path Cert:\LocalMachine\Root -CodeSigningCert
+          #$Cert=Get-ChildItem -Path Cert:\LocalMachine\Root -CodeSigningCert
           #Get-PfxCertificate -FilePath ".\codesigning.pfx" -CodeSigningCert
-          #$Cert=Get-PfxCertificate -FilePath ".\codesigning.pfx" 
+          $Cert=Get-PfxCertificate -FilePath ".\codesigning.pfx" 
           Set-PSDebug -Trace 2; Set-AuthenticodeSignature `
             -Certificate $Cert `
             -FilePath ".\hello-world.ps1" `
